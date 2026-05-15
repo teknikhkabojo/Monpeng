@@ -378,7 +378,7 @@ tbody tr:hover{background:var(--alight)}
 <div id="toast"></div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbxzvSm4SFugbziGQQ2TydyaW7cJyVwB9cX8NKLvBvLSYRVkynauK3OZ0A0GAmGX2wJA/exec";
+const API = "https://script.google.com/macros/s/AKfycby9dnPtso4pVdPMGcx1VUxcDZYgIJsyPga9bMKRv4xg3qVi48QkruCr22dIkDp2TjkN/exec";
 const GET = async(a,p) => { try{ const u = new URLSearchParams({action:a,...p}); return await(await fetch(API+"?"+u)).json() }catch(e){return{error:e.message}} };
 const POST = async(a,d) => { try{ const r=await fetch(API,{method:"POST",body:JSON.stringify({action:a,data:d})}); return await r.json() }catch(e){return{error:e.message}} };
 const $ = id => document.getElementById(id);
