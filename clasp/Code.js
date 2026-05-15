@@ -21,22 +21,22 @@ function doGet(e) {
 
 function doPost(e) {
   const p = JSON.parse(e.postData.contents);
-  const a = p.action;
+  const a = p.action, d = p.data || {};
   try {
-    if (a === "login") return json(login(p.data?.username, p.data?.password));
-    if (a === "addCustomer") return json(cud("add", SH.customers, ["Name", "Address", "Phone", "CreatedAt"], [p.name, p.address || "", p.phone || "", now()]));
-    if (a === "editCustomer") return json(editRec(SH.customers, "ID", p.id, { Name: p.name, Address: p.address, Phone: p.phone }));
-    if (a === "deleteCustomer") return json(delRec(SH.customers, "ID", p.id));
-    if (a === "addProject") return json(cud("add", SH.projects, ["CustomerID", "ProjectName", "Location", "CreatedAt"], [p.customerId, p.projectName, p.location || "", now()]));
-    if (a === "editProject") return json(editRec(SH.projects, "ID", p.id, { CustomerID: p.customerId, ProjectName: p.projectName, Location: p.location }));
-    if (a === "deleteProject") return json(delRec(SH.projects, "ID", p.id));
-    if (a === "addProduct") return json(cud("add", SH.products, ["ProductType", "Diameter", "Length", "Class", "Type", "Unit", "CreatedAt"], [p.productType, p.diameter, p.length, p.pClass, p.pType, p.unit, now()]));
-    if (a === "editProduct") return json(editRec(SH.products, "ID", p.id, { ProductType: p.productType, Diameter: p.diameter, Length: p.length, Class: p.pClass, Type: p.pType, Unit: p.unit }));
-    if (a === "deleteProduct") return json(delRec(SH.products, "ID", p.id));
-    if (a === "addPO") return json(addPO(p));
-    if (a === "editPO") return json(editPO(p));
-    if (a === "deletePO") return json(delRec(SH.po, "ID", p.id));
-    if (a === "ai") return json(aiHandler(p));
+    if (a === "login") return json(login(d.username, d.password));
+    if (a === "addCustomer") return json(cud("add", SH.customers, ["Name","Address","Phone","CreatedAt"], [d.name, d.address||"", d.phone||"", now()]));
+    if (a === "editCustomer") return json(editRec(SH.customers, "ID", d.id, { Name: d.name, Address: d.address, Phone: d.phone }));
+    if (a === "deleteCustomer") return json(delRec(SH.customers, "ID", d.id));
+    if (a === "addProject") return json(cud("add", SH.projects, ["CustomerID","ProjectName","Location","CreatedAt"], [d.customerId, d.projectName, d.location||"", now()]));
+    if (a === "editProject") return json(editRec(SH.projects, "ID", d.id, { CustomerID: d.customerId, ProjectName: d.projectName, Location: d.location }));
+    if (a === "deleteProject") return json(delRec(SH.projects, "ID", d.id));
+    if (a === "addProduct") return json(cud("add", SH.products, ["ProductType","Diameter","Length","Class","Type","Unit","CreatedAt"], [d.productType, d.diameter, d.length, d.pClass, d.pType, d.unit, now()]));
+    if (a === "editProduct") return json(editRec(SH.products, "ID", d.id, { ProductType: d.productType, Diameter: d.diameter, Length: d.length, Class: d.pClass, Type: d.pType, Unit: d.unit }));
+    if (a === "deleteProduct") return json(delRec(SH.products, "ID", d.id));
+    if (a === "addPO") return json(addPO(d));
+    if (a === "editPO") return json(editPO(d));
+    if (a === "deletePO") return json(delRec(SH.po, "ID", d.id));
+    if (a === "ai") return json(aiHandler(d));
     return json({ error: "Unknown action" });
   } catch (err) { return json({ error: err.message }); }
 }
